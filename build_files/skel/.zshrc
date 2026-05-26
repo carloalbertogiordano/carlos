@@ -43,6 +43,13 @@ alias warp-on="sudo systemctl start warp-svc && warp-cli connect"
 alias warp-off="warp-cli disconnect && sudo systemctl stop warp-svc"
 alias warp-status="warp-cli status"
 
+# mise — per-project language versions (node/python/go/java/…)
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
+
+# AUR via Arch distrobox (create first: distrobox assemble create --file /etc/distrobox/arch-aur.ini)
+alias aur='distrobox enter arch-aur --'
+alias dbx-create-arch='distrobox assemble create --file /etc/distrobox/arch-aur.ini'
+
 command -v chuck_cow >/dev/null 2>&1 && chuck_cow || true
 
 autoload -U +X bashcompinit && bashcompinit

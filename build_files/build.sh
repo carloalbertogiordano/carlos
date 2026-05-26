@@ -141,6 +141,74 @@ git clone --depth 1 https://github.com/vinceliuice/Vimix-cursors /tmp/Vimix-curs
 bash /tmp/Vimix-cursors/install.sh -d /usr/share/icons
 rm -rf /tmp/Vimix-cursors
 
+## ── PACKAGE MANAGERS ─────────────────────────────────────────────────────────
+# mise: per-project language version manager (node, python, go, ruby, java, …)
+curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
+
+# uv: fast Python package + venv + version manager (replaces pip/pyenv/virtualenv)
+UV_LATEST=$(curl -sf https://api.github.com/repos/astral-sh/uv/releases/latest | \
+    python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
+curl -fsSL "https://github.com/astral-sh/uv/releases/download/${UV_LATEST}/uv-x86_64-unknown-linux-musl.tar.gz" \
+    | tar -xz -C /tmp
+install -m755 /tmp/uv-x86_64-unknown-linux-musl/uv  /usr/local/bin/uv
+install -m755 /tmp/uv-x86_64-unknown-linux-musl/uvx /usr/local/bin/uvx
+rm -rf /tmp/uv-x86_64-unknown-linux-musl
+
+## ── NIX: package manager (immutable-compatible) ──────────────────────────────
+# /nix is empty in image (read-only layer); nix.mount bind-mounts /var/lib/nix
+# over it at runtime so the Nix store lives on writable /var.
+mkdir -p /nix
+
+cat > /etc/tmpfiles.d/nix.conf << 'EOF'
+d /var/lib/nix 0755 root root -
+EOF
+
+cat > /etc/systemd/system/nix.mount << 'EOF'
+[Unit]
+Description=Nix store (bind mount /var/lib/nix → /nix)
+DefaultDependencies=no
+After=var.mount
+Before=local-fs.target
+
+[Mount]
+What=/var/lib/nix
+Where=/nix
+Type=none
+Options=bind,x-systemd.requires-mounts-for=/var
+
+[Install]
+WantedBy=local-fs.target
+EOF
+
+# Run once after first login: sudo setup-nix
+cat > /usr/local/bin/setup-nix << 'EOF'
+#!/bin/bash
+set -euo pipefail
+echo "[setup-nix] Installing Nix (DeterminateSystems)..."
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
+    | sh -s -- install linux \
+    --init systemd \
+    --no-confirm \
+    --extra-conf "trusted-users = root @wheel"
+echo "[setup-nix] Done — open a new shell or run: . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+EOF
+chmod +x /usr/local/bin/setup-nix
+systemctl enable nix.mount
+
+## ── ARCH DISTROBOX: AUR access via paru ──────────────────────────────────────
+# Provides full AUR access via an Arch Linux container.
+# Create with: distrobox assemble create --file /etc/distrobox/arch-aur.ini
+# Use with:    distrobox enter arch-aur
+mkdir -p /etc/distrobox
+cat > /etc/distrobox/arch-aur.ini << 'EOF'
+[arch-aur]
+image=docker.io/archlinux:latest
+init=false
+pull=false
+start_now=false
+init_hooks=pacman-key --init && pacman-key --populate archlinux && pacman -Syu --noconfirm && pacman -S --noconfirm base-devel git sudo && useradd -m aurbuild && echo 'aurbuild ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/aurbuild && su - aurbuild -c 'git clone https://aur.archlinux.org/paru-bin.git /tmp/p && cd /tmp/p && makepkg -si --noconfirm && rm -rf /tmp/p' && userdel -r aurbuild && rm /etc/sudoers.d/aurbuild
+EOF
+
 ## ── DESKTOP: KDE Plasma ──────────────────────────────────────────────────────
 # KDE Plasma + SDDM already in kinoite-main base — no extra desktop install needed
 # SDDM is already enabled; no display-manager override required
