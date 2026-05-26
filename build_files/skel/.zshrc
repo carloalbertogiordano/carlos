@@ -27,6 +27,12 @@ alias upall="upbootc; upflatpak; upbrew; echo; echo 'ALL DONE — reboot to appl
 
 alias neofetch="fastfetch"
 
+# Distrobox shortcuts
+alias dbx='distrobox enter'
+alias dbx-export-app='distrobox-export --app'
+alias dbx-export-bin='distrobox-export --bin'
+alias dbx-ls='distrobox list'
+
 alias rscp='rsync -aP'
 alias rsmv='rsync -aP --remove-source-files'
 

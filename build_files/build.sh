@@ -54,6 +54,14 @@ dnf -y install \
 ## ── CONTAINERS ───────────────────────────────────────────────────────────────
 dnf -y install distrobox toolbox
 
+# System-wide distrobox defaults: GPU, FUSE, Wayland, SELinux-off, debug caps
+# Users can override in ~/.config/distrobox/distrobox.conf
+mkdir -p /etc/distrobox/
+cat > /etc/distrobox/distrobox.conf << 'EOF'
+container_additional_flags="--device /dev/dri --device /dev/fuse --security-opt label=disable --ipc=host --cap-add=SYS_PTRACE --cap-add=NET_RAW --volume /run/udev:/run/udev:ro"
+container_generate_entry=1
+EOF
+
 ## ── ANDROID TOOLS ────────────────────────────────────────────────────────────
 # adb, fastboot, etc.
 dnf -y install android-tools
