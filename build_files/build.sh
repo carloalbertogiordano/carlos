@@ -16,10 +16,6 @@ dnf -y install \
 # CachyOS kernel (COPR bieszczaders/kernel-cachyos)
 dnf copr enable -y bieszczaders/kernel-cachyos
 
-# DMS shell
-curl -Lo "/etc/yum.repos.d/avengemedia-dms-fedora-${FEDORA_VER}.repo" \
-    "https://copr.fedorainfracloud.org/coprs/avengemedia/dms/repo/fedora-${FEDORA_VER}/avengemedia-dms-fedora-${FEDORA_VER}.repo"
-
 # Nautilus open-any-terminal
 curl -Lo /etc/yum.repos.d/nautilus-open-any-terminal.repo \
     "https://copr.fedorainfracloud.org/coprs/monkeygold/nautilus-open-any-terminal/repo/fedora-${FEDORA_VER}/monkeygold-nautilus-open-any-terminal-fedora-${FEDORA_VER}.repo"
@@ -72,7 +68,7 @@ dnf -y install waydroid
 
 ## ── SYSTEM TOOLS ─────────────────────────────────────────────────────────────
 dnf -y install \
-    flatpak-builder wlr-randr iotop sysstat lxqt-openssh-askpass lxpolkit parallel \
+    flatpak-builder iotop sysstat parallel \
     thermald power-profiles-daemon \
     lm_sensors irqbalance microcode_ctl
 
@@ -97,19 +93,14 @@ dnf -y install \
 dnf -y install ffmpeg x264-libs obs-studio obs-studio-plugin-x264 --allowerasing
 
 ## ── USER APPS ────────────────────────────────────────────────────────────────
-dnf -y install nautilus kitty mpv gnome-terminal gnome-system-monitor
+dnf -y install nautilus kitty mpv gnome-terminal gnome-system-monitor yakuake
 
 # Wine (RPM Fusion) — both 64 and 32-bit for legacy app compatibility
 dnf -y install wine wine.i686
 
-## ── WAYLAND / NIRI REQUIRED TOOLS ───────────────────────────────────────────
-# These are actively called from niri keybindings — must be present
-dnf -y install \
-    brightnessctl \
-    playerctl \
-    swaylock \
-    grim \
-    slurp
+## ── WAYLAND SESSION TOOLS ───────────────────────────────────────────────────
+# brightnessctl: keyboard brightness keys; playerctl: media keys
+dnf -y install brightnessctl playerctl
 
 ## ── NAUTILUS OPEN-ANY-TERMINAL ───────────────────────────────────────────────
 dnf install -y nautilus-open-any-terminal
@@ -123,35 +114,41 @@ terminal='kitty'
 EOF
 dconf update
 
-## ── DESKTOP: Niri + DMS ──────────────────────────────────────────────────────
-dnf -y install niri
-dnf -y install quickshell dms greetd dms-greeter --allowerasing
+## ── KDE THEMES (downloaded from source, always latest) ──────────────────────
+# Papirus: base icon theme — Nordic-darker overrides only folder icons
+dnf -y install papirus-icon-theme
 
-# greetd → default display manager
-mkdir -p /etc/greetd/
-cat > /etc/greetd/config.toml << 'EOF'
-[terminal]
-vt = 1
-[default_session]
-user = "greeter"
-command = "dms-greeter --command niri"
-EOF
-rm -f /etc/systemd/system/display-manager.service
-ln -s /usr/lib/systemd/system/greetd.service /etc/systemd/system/display-manager.service
-systemctl enable --force greetd.service
+# Ant-Kde: aurorae decoration + Ant-Dark color scheme + LnF package
+git clone --depth 1 https://github.com/EliverLara/Ant-Kde /tmp/Ant-Kde
+install -dm755 /usr/share/aurorae/themes/
+cp -r /tmp/Ant-Kde/aurorae/Dark /usr/share/aurorae/themes/Ant-Dark
+install -dm755 /usr/share/color-schemes/
+cp /tmp/Ant-Kde/color-schemes/Ant-Dark.colors /usr/share/color-schemes/
+install -dm755 /usr/share/plasma/look-and-feel/
+cp -r /tmp/Ant-Kde/plasma/look-and-feel/Ant-Dark /usr/share/plasma/look-and-feel/
+rm -rf /tmp/Ant-Kde
 
-# skel: niri config + DMS autostart
-mkdir -p /etc/skel/.config/systemd/user/graphical-session.target.wants
-ln -sf /usr/lib/systemd/user/dms.service \
-    /etc/skel/.config/systemd/user/graphical-session.target.wants/dms.service
-mkdir -p /etc/skel/.config/niri/
-cp -f /ctx/dot_config/niri/config.kdl /etc/skel/.config/niri/config.kdl
+# Nordic: folder icon overlay for KDE (inherits Papirus-Dark for app icons)
+git clone --depth 1 https://github.com/EliverLara/Nordic /tmp/Nordic
+install -dm755 /usr/share/icons/
+cp -r /tmp/Nordic/kde/folders-darker/Nordic-darker /usr/share/icons/
+gtk-update-icon-cache /usr/share/icons/Nordic-darker/ || true
+rm -rf /tmp/Nordic
+
+# Vimix cursors
+git clone --depth 1 https://github.com/vinceliuice/Vimix-cursors /tmp/Vimix-cursors
+bash /tmp/Vimix-cursors/install.sh -d /usr/share/icons
+rm -rf /tmp/Vimix-cursors
+
+## ── DESKTOP: KDE Plasma ──────────────────────────────────────────────────────
+# KDE Plasma + SDDM already in kinoite-main base — no extra desktop install needed
+# SDDM is already enabled; no display-manager override required
 
 # kitty config
 mkdir -p /etc/skel/.config/kitty/
 cp -rf /ctx/dot_config/kitty/. /etc/skel/.config/kitty/
 
-# Shell dotfiles: zsh, tmux, git
+# Shell dotfiles, KDE config, themes, wallpaper
 cp -rf /ctx/skel/. /etc/skel/
 
 # oh-my-zsh + custom plugins — installed into skel so every new user gets it

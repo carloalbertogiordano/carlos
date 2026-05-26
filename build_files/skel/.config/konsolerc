@@ -1,0 +1,14 @@
+[Desktop Entry]
+DefaultProfile=Profilo 2.profile
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+FocusFollowsMouse=true
+
+[Notification Messages]
+CloseAllTabs=true
+
+[UiSettings]
+ColorScheme=

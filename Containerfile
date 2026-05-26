@@ -2,12 +2,12 @@
 FROM scratch AS ctx
 COPY build_files /
 
-# Base Image: clean Fedora 44, no NVIDIA bloat (machine has Intel Iris Xe only)
-FROM ghcr.io/ublue-os/base-main:44
+# Base Image: Universal Blue KDE spin (KDE Plasma + SDDM pre-installed)
+FROM ghcr.io/ublue-os/kinoite-main:44
 
 ## Other possible base images:
-# FROM ghcr.io/ublue-os/base-main:latest
-# FROM quay.io/fedora/fedora-bootc:44
+# FROM ghcr.io/ublue-os/kinoite-main:latest
+# FROM quay.io/fedora/fedora-kinoite:44
 
 ### [IM]MUTABLE /opt
 ## JetBrains Toolbox writes to ~/.local/share/JetBrains (user home) — no /opt needed.

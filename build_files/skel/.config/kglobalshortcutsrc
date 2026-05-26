@@ -1,0 +1,307 @@
+[ActivityManager]
+_k_friendly_name=Gestore delle attività
+switch-to-activity-72eeec1c-4aed-4db4-b433-5bb8f6704f6a=none,none,Passa all'attività «Predefinita»
+
+[KDE Keyboard Layout Switcher]
+Switch to Last-Used Keyboard Layout=Meta+Alt+L,Meta+Alt+L,Passa all'ultima mappatura di tastiera utilizzata
+Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Passa alla mappatura di tastiera successiva
+_k_friendly_name=Selettore di mappature della tastiera
+
+[ai.lmstudio.lm-studio]
+022FEA1E6C6F8E7F10B8C31EE34764D8-=,none,Electron shortcut\s
+49066D62B8FFF5601903232564491DDB-Ctrl+0=,none,Electron shortcut Ctrl+0
+_k_friendly_name=LM-Studio
+
+[com.google.Chrome]
+A83FA3A8E435C00945027527C9EFAEBE-autofill_card=none,none,Riempi automaticamente con l'ultima carta utilizzata sul sito corrente
+A83FA3A8E435C00945027527C9EFAEBE-autofill_identity=none,none,Riempi automaticamente con l'ultima identità utilizzata sul sito corrente
+A83FA3A8E435C00945027527C9EFAEBE-autofill_login=none,none,Riempi automaticamente con l'ultimo login utilizzato sul sito corrente
+A83FA3A8E435C00945027527C9EFAEBE-generate_password=none,none,Genera e copia una nuova password casuale negli appunti
+A83FA3A8E435C00945027527C9EFAEBE-lock_vault=none,none,Blocca la cassaforte
+_k_friendly_name=Google Chrome
+
+[control-center]
+D976FFA06446B8933CFC26BF63AD9A2C-=Meta+Alt+F6,Meta+Alt+F6,tuxedo-control-center shortcut:\s
+_k_friendly_name=control-center
+
+[discord-screenaudio]
+_k_friendly_name=discord-screenaudio
+toggleDeafen=none,none,Toggle Deafen
+toggleMute=none,none,Toggle Mute
+
+[kaccess]
+Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Attiva/Disattiva il lettore dello schermo
+_k_friendly_name=Accessibilità
+
+[kmix]
+_k_friendly_name=Volume audio
+decrease_microphone_volume=Microphone Volume Down,Microphone Volume Down,Riduci volume del microfono
+decrease_volume=Volume Down,Volume Down,Riduci volume
+decrease_volume_small=Shift+Volume Down,Shift+Volume Down,Riduci il volume del 1%
+increase_microphone_volume=Microphone Volume Up,Microphone Volume Up,Aumenta volume del microfono
+increase_volume=Volume Up,Volume Up,Aumenta volume
+increase_volume_small=Shift+Volume Up,Shift+Volume Up,Aumenta il volume del 1%
+mic_mute=Microphone Mute\tMeta+Volume Mute,Microphone Mute\tMeta+Volume Mute,Silenzia microfono
+mute=Volume Mute,Volume Mute,Silenzia
+
+[ksmserver]
+Halt Without Confirmation=none,,Spegnimento senza conferma
+Lock Session=Meta+L\tScreensaver,Meta+L\tScreensaver,Blocca sessione
+Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Mostra la schermata di chiusura della sessione
+Log Out Without Confirmation=none,,Uscita senza conferma
+LogOut=none,,Disconnetti
+Reboot=none,,Riavvia
+Reboot Without Confirmation=none,,Riavvio senza conferma
+Shut Down=none,,Spegni
+_k_friendly_name=Gestione della sessione
+
+[kwin]
+Activate Window Demanding Attention=Meta+Ctrl+A,Meta+Ctrl+A,Attiva la finestra che chiede attenzione
+Cube=Meta+C,none,Attiva/disattiva il cubo
+Cycle Overview=none,none,Passa dalla panoramica alla griglia
+Cycle Overview Opposite=none,none,Passa dalla griglia alla panoramica
+Decrease Opacity=none,,Diminuisci l'opacità della finestra attiva del 5%
+Edit Tiles=Meta+T,Meta+T,Commuta l'editor dei riquadri
+Expose=Ctrl+F9,Meta+F9\tCtrl+F9,Attiva/disattiva presentazione delle finestre (Desktop attuale)
+ExposeAll=Ctrl+F10\tLaunch (C),Meta+F10\tLaunch (C)\tCtrl+F10,Attiva/disattiva presentazione delle finestre (Tutti i desktop)
+ExposeClass=Ctrl+F7,Meta+F7\tCtrl+F7,Attiva/disattiva presentazione delle finestre (Classe di finestre)
+ExposeClassCurrentDesktop=none,none,Attiva/disattiva presentazione delle finestre (classe di finestre sul desktop attuale)
+Grid View=Meta+G,Meta+G,Attiva/disattiva la griglia
+Increase Opacity=none,,Aumenta l'opacità della finestra attiva del 5%
+Kill Window=Meta+Ctrl+Esc,Meta+Ctrl+Esc,Termina la finestra
+Move Tablet to Next LogicalOutput=none,none,Sposta la tavoletta all'uscita successiva
+Move Tablet to Next Output=none,none,Sposta la tavoletta all'uscita successiva
+MoveMouseToCenter=Meta+F6,Meta+F6,Sposta il mouse al centro
+MoveMouseToFocus=Meta+F5,Meta+F5,Sposta il mouse sul fuoco
+MoveZoomDown=none,none,Sposta l'area ingrandita in basso
+MoveZoomLeft=none,none,Sposta l'area ingrandita a sinistra
+MoveZoomRight=none,none,Sposta l'area ingrandita a destra
+MoveZoomUp=none,none,Sposta l'area ingrandita in alto
+Overview=Meta+W,Meta+W,Attiva/disattiva la panoramica
+Setup Window Shortcut=none,,Imposta scorciatoie finestra
+Show Desktop=Meta+D,Meta+D,Dai un'occhiata al desktop
+Switch One Desktop Down=Meta+Ctrl+Down,Meta+Ctrl+Down,Vai al desktop inferiore
+Switch One Desktop Up=Meta+Ctrl+Up,Meta+Ctrl+Up,Vai al desktop superiore
+Switch One Desktop to the Left=Meta+Ctrl+Left,Meta+Ctrl+Left,Vai un desktop a sinistra
+Switch One Desktop to the Right=Meta+Ctrl+Right,Meta+Ctrl+Right,Vai un desktop a destra
+Switch Window Down=Meta+Alt+Down,Meta+Alt+Down,Vai alla finestra sotto
+Switch Window Left=Meta+Alt+Left,Meta+Alt+Left,Vai alla finestra a sinistra
+Switch Window Right=Meta+Alt+Right,Meta+Alt+Right,Vai alla finestra a destra
+Switch Window Up=Meta+Alt+Up,Meta+Alt+Up,Vai alla finestra sopra
+Switch to Desktop 1=Ctrl+F1,Meta+F1\tCtrl+F1,Vai al desktop 1
+Switch to Desktop 10=none,,Vai al desktop 10
+Switch to Desktop 11=none,,Vai al desktop 11
+Switch to Desktop 12=none,,Vai al desktop 12
+Switch to Desktop 13=none,,Vai al desktop 13
+Switch to Desktop 14=none,,Vai al desktop 14
+Switch to Desktop 15=none,,Vai al desktop 15
+Switch to Desktop 16=none,,Vai al desktop 16
+Switch to Desktop 17=none,,Vai al desktop 17
+Switch to Desktop 18=none,,Vai al desktop 18
+Switch to Desktop 19=none,,Vai al desktop 19
+Switch to Desktop 2=Ctrl+F2,Meta+F2\tCtrl+F2,Vai al desktop 2
+Switch to Desktop 20=none,,Vai al desktop 20
+Switch to Desktop 21=,,Vai al desktop 21
+Switch to Desktop 22=,,Vai al desktop 22
+Switch to Desktop 23=,,Vai al desktop 23
+Switch to Desktop 24=,,Vai al desktop 24
+Switch to Desktop 25=,,Vai al desktop 25
+Switch to Desktop 3=Ctrl+F3,Meta+F3\tCtrl+F3,Vai al desktop 3
+Switch to Desktop 4=Ctrl+F4,Meta+F4\tCtrl+F4,Vai al desktop 4
+Switch to Desktop 5=none,,Vai al desktop 5
+Switch to Desktop 6=none,,Vai al desktop 6
+Switch to Desktop 7=none,,Vai al desktop 7
+Switch to Desktop 8=none,,Vai al desktop 8
+Switch to Desktop 9=none,,Vai al desktop 9
+Switch to Next Desktop=none,,Vai al desktop successivo
+Switch to Next Screen=none,,Vai allo schermo successivo
+Switch to Previous Desktop=none,,Vai al desktop precedente
+Switch to Previous Screen=none,,Vai allo schermo precedente
+Switch to Screen 0=none,,Vai allo schermo 0
+Switch to Screen 1=none,,Vai allo schermo 1
+Switch to Screen 2=none,,Vai allo schermo 2
+Switch to Screen 3=none,,Vai allo schermo 3
+Switch to Screen 4=none,,Vai allo schermo 4
+Switch to Screen 5=none,,Vai allo schermo 5
+Switch to Screen 6=none,,Vai allo schermo 6
+Switch to Screen 7=none,,Vai allo schermo 7
+Switch to Screen Above=none,,Passa allo schermo in alto
+Switch to Screen Below=none,,Passa allo schermo in basso
+Switch to Screen to the Left=none,,Passa allo schermo a sinistra
+Switch to Screen to the Right=none,,Passa allo schermo a destra
+Toggle Night Color=none,none,Sospendi/Ripristina Luce notturna
+Toggle Window Raise/Lower=none,,Alza/abbassa finestra
+ToggleMouseClick=Meta+*,Meta+*,Attiva/disattiva effetto del clic del mouse
+TrackMouse=none,none,Traccia il mouse
+Walk Through Windows=Alt+Tab,Meta+Tab\tAlt+Tab,Percorri le finestre
+Walk Through Windows (Reverse)=Alt+Shift+Tab,Meta+Shift+Tab\tAlt+Shift+Tab,Percorri le finestre (all'indietro)
+Walk Through Windows Alternative=none,none,Percorri le finestre alternativo
+Walk Through Windows Alternative (Reverse)=none,none,Percorri le finestre alternativo (all'indietro)
+Walk Through Windows of Current Application=Alt+`,Meta+`\tAlt+`,Percorri le finestre dell'applicazione
+Walk Through Windows of Current Application (Reverse)=Alt+~,Meta+~\tAlt+~,Percorri le finestre dell'applicazione attuale (all'indietro)
+Walk Through Windows of Current Application Alternative=none,none,Percorri le finestre dell'applicazione attuale alternativo
+Walk Through Windows of Current Application Alternative (Reverse)=none,none,Percorri le finestre dell'applicazione attuale alternativo (all'indietro)
+Window Above Other Windows=none,,Tieni la finestra sopra le altre
+Window Below Other Windows=none,,Tieni la finestra sotto le altre
+Window Close=Alt+F4,Alt+F4,Chiudi la finestra
+Window Custom Quick Tile Bottom=none,,Incastra la finestra personalizzata in basso
+Window Custom Quick Tile Left=none,,Incastra la finestra personalizzata a sinistra
+Window Custom Quick Tile Right=none,,Incastra la finestra personalizzata a destra
+Window Custom Quick Tile Top=none,,Incastra la finestra personalizzata in alto
+Window Fullscreen=none,,Finestra a tutto schermo
+Window Grow Horizontal=none,,Espandi la finestra in orizzontale
+Window Grow Vertical=none,,Espandi la finestra in verticale
+Window Lower=none,,Abbassa la finestra
+Window Maximize=Meta+PgUp,Meta+PgUp,Massimizza finestra
+Window Maximize Horizontal=none,,Massimizza in orizzontale la finestra
+Window Maximize Vertical=none,,Massimizza in verticale la finestra
+Window Minimize=Meta+PgDown,Meta+PgDown,Minimizza la finestra
+Window Move=none,,Sposta la finestra
+Window Move Center=none,,Sposta la finestra al centro
+Window No Border=none,,Commuta la barra del titolo e la cornice della finestra
+Window On All Desktops=none,,Tieni la finestra su tutti i desktop
+Window One Desktop Down=Meta+Ctrl+Shift+Down,Meta+Ctrl+Shift+Down,Finestra in basso di un desktop
+Window One Desktop Up=Meta+Ctrl+Shift+Up,Meta+Ctrl+Shift+Up,Finestra in alto di un desktop
+Window One Desktop to the Left=Meta+Ctrl+Shift+Left,Meta+Ctrl+Shift+Left,Finestra a sinistra di un desktop
+Window One Desktop to the Right=Meta+Ctrl+Shift+Right,Meta+Ctrl+Shift+Right,Finestra a destra di un desktop
+Window One Screen Down=none,,Sposta la finestra una schermata in basso
+Window One Screen Up=none,,Sposta la finestra una schermata in alto
+Window One Screen to the Left=none,,Sposta la finestra una schermata a sinistra
+Window One Screen to the Right=none,,Sposta la finestra una schermata a destra
+Window Operations Menu=Alt+F3,Alt+F3,Menu Finestra
+Window Pack Down=none,,Sposta la finestra in basso
+Window Pack Left=none,,Sposta la finestra a sinistra
+Window Pack Right=none,,Sposta la finestra a destra
+Window Pack Up=none,,Sposta la finestra in alto
+Window Quick Tile Bottom=Meta+Down,Meta+Down,Incastra la finestra in basso
+Window Quick Tile Bottom Left=none,,Incastra la finestra a sinistra in basso
+Window Quick Tile Bottom Right=none,,Incastra la finestra a destra i basso
+Window Quick Tile Left=Meta+Left,Meta+Left,Incastra la finestra a sinistra
+Window Quick Tile Right=Meta+Right,Meta+Right,Incastra la finestra a destra
+Window Quick Tile Top=Meta+Up,Meta+Up,Incastra la finestra in alto
+Window Quick Tile Top Left=none,,Incastra la finestra a sinistra in alto
+Window Quick Tile Top Right=none,,Incastra la finestra a destra in alto
+Window Raise=none,,Alza la finestra
+Window Resize=none,,Ridimensiona la finestra
+Window Shade=none,none,Arrotola finestra
+Window Shrink Horizontal=none,,Restringi la finestra in orizzontale
+Window Shrink Vertical=none,,Restringi la finestra in verticale
+Window to Desktop 1=none,,Finestra al desktop 1
+Window to Desktop 10=none,,Finestra al desktop 10
+Window to Desktop 11=none,,Finestra al desktop 11
+Window to Desktop 12=none,,Finestra al desktop 12
+Window to Desktop 13=none,,Finestra al desktop 13
+Window to Desktop 14=none,,Finestra al desktop 14
+Window to Desktop 15=none,,Finestra al desktop 15
+Window to Desktop 16=none,,Finestra al desktop 16
+Window to Desktop 17=none,,Finestra al desktop 17
+Window to Desktop 18=none,,Finestra al desktop 18
+Window to Desktop 19=none,,Finestra al desktop 19
+Window to Desktop 2=none,,Finestra al desktop 2
+Window to Desktop 20=none,,Finestra al desktop 20
+Window to Desktop 21=,,Finestra al desktop 21
+Window to Desktop 22=,,Finestra al desktop 22
+Window to Desktop 23=,,Finestra al desktop 23
+Window to Desktop 24=,,Finestra al desktop 24
+Window to Desktop 25=,,Finestra al desktop 25
+Window to Desktop 3=none,,Finestra al desktop 3
+Window to Desktop 4=none,,Finestra al desktop 4
+Window to Desktop 5=none,,Finestra al desktop 5
+Window to Desktop 6=none,,Finestra al desktop 6
+Window to Desktop 7=none,,Finestra al desktop 7
+Window to Desktop 8=none,,Finestra al desktop 8
+Window to Desktop 9=none,,Finestra al desktop 9
+Window to Next Desktop=none,,Finestra al desktop successivo
+Window to Next Screen=Meta+Shift+Right,Meta+Shift+Right,Sposta la finestra allo schermo successivo
+Window to Previous Desktop=none,,Finestra al desktop precedente
+Window to Previous Screen=Meta+Shift+Left,Meta+Shift+Left,Sposta la finestra allo schermo precedente
+Window to Screen 0=none,,Sposta la finestra allo schermo 0
+Window to Screen 1=none,,Sposta la finestra allo schermo 1
+Window to Screen 2=none,,Sposta la finestra allo schermo 2
+Window to Screen 3=none,,Sposta la finestra allo schermo 3
+Window to Screen 4=none,,Sposta la finestra allo schermo 4
+Window to Screen 5=none,,Sposta la finestra allo schermo 5
+Window to Screen 6=none,,Sposta la finestra allo schermo 6
+Window to Screen 7=none,,Sposta la finestra allo schermo 7
+_k_friendly_name=KWin
+disableInputCapture=Meta+Shift+Esc,Meta+Shift+Esc,Disabilita l'acquisizione dell'immissione attiva
+view_actual_size=Meta+0,Meta+0,Ingrandimento alla dimensione effettiva
+view_zoom_in=Meta++\tMeta+=,Meta++\tMeta+=,Ingrandisci
+view_zoom_out=Meta+-,Meta+-,Riduci
+
+[mediacontrol]
+_k_friendly_name=Controllo multimediale
+mediavolumedown=none,,Riduci volume del supporto
+mediavolumeup=none,,Aumenta volume del supporto
+nextmedia=Media Next,Media Next,Riproduzione del supporto successivo
+pausemedia=Media Pause,Media Pause,Sospendi la riproduzione del supporto
+playmedia=none,,Riproduci il supporto
+playpausemedia=Media Play,Media Play,Riproduci/Sospendi supporto
+previousmedia=Media Previous,Media Previous,Riproduzione del supporto precedente
+seekbackwardmedia=Media Rewind,Media Rewind,Posizionamento della riproduzione indietro di 5s
+seekbackwardmedialong=,,Posizionamento della riproduzione indietro di 30s
+seekforwardmedia=Media Fast Forward,Media Fast Forward,Posizionamento della riproduzione in avanti di 5s
+seekforwardmedialong=,,Posizionamento della riproduzione in avanti di 30s
+stopmedia=Media Stop,Media Stop,Ferma la riproduzione del supporto
+
+[org_kde_powerdevil]
+Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Abbassa luminosità della tastiera
+Decrease Screen Brightness=Monitor Brightness Down,Monitor Brightness Down,Abbassa luminosità dello schermo
+Decrease Screen Brightness Small=Shift+Monitor Brightness Down,Shift+Monitor Brightness Down,Riduci la luminosità dello schermo dell'1%
+Hibernate=Hibernate,Hibernate,Iberna
+Increase Keyboard Brightness=Keyboard Brightness Up,Keyboard Brightness Up,Aumenta luminosità della tastiera
+Increase Screen Brightness=Monitor Brightness Up,Monitor Brightness Up,Aumenta luminosità dello schermo
+Increase Screen Brightness Small=Shift+Monitor Brightness Up,Shift+Monitor Brightness Up,Aumenta luminosità dello schermo dell'1%
+PowerDown=Power Down,Power Down,Spegni
+PowerOff=Power Off,Power Off,Spegni
+Sleep=Sleep,Sleep,Sospendi
+Toggle Keyboard Backlight=Keyboard Light On/Off,Keyboard Light On/Off,Attiva retroilluminazione tastiera
+Turn Off Screen=none,none,Spegni lo schermo
+_k_friendly_name=Gestione energetica
+powerProfile=Battery\tMeta+B,Battery\tMeta+B,Cambia il profilo energetico
+
+[plasmashell]
+Slideshow Wallpaper Next Image=none,,Immagine di sfondo successiva
+_k_friendly_name=plasmashell
+activate application launcher=Meta,Meta\tAlt+F1,Attiva esecutore delle applicazioni
+activate task manager entry 1=Meta+1,Meta+1,Attiva voce 1 del gestore dei processi
+activate task manager entry 10=none,,Attiva voce 10 del gestore dei processi
+activate task manager entry 2=Meta+2,Meta+2,Attiva voce 2 del gestore dei processi
+activate task manager entry 3=Meta+3,Meta+3,Attiva voce 3 del gestore dei processi
+activate task manager entry 4=Meta+4,Meta+4,Attiva voce 4 del gestore dei processi
+activate task manager entry 5=Meta+5,Meta+5,Attiva voce 5 del gestore dei processi
+activate task manager entry 6=Meta+6,Meta+6,Attiva voce 6 del gestore dei processi
+activate task manager entry 7=Meta+7,Meta+7,Attiva voce 7 del gestore dei processi
+activate task manager entry 8=Meta+8,Meta+8,Attiva voce 8 del gestore dei processi
+activate task manager entry 9=Meta+9,Meta+9,Attiva voce 9 del gestore dei processi
+activate widget 29=none,none,Attiva oggetto Avviatore di applicazioni
+activate widget 3=Alt+F1,none,Attiva oggetto Avviatore di applicazioni
+activate widget 55=none,none,Attiva oggetto Avviatore di applicazioni
+activate widget 83=none,none,Attiva oggetto Gestore dei processi solo icone
+clear-history=none,,Ripulisci la cronologia degli appunti
+clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Menu a comparsa delle azioni automatiche
+cycle-panels=Meta+Alt+P,Meta+Alt+P,Sposta il fuoco della tastiera tra i pannelli
+cycleNextAction=none,,Elemento successivo nella cronologia
+cyclePrevAction=none,,Elemento precedente nella cronologia
+edit_clipboard=none,,Modifica i contenuti…
+manage activities=Meta+Q,Meta+Q,Mostra il selettore delle attività
+next activity=Meta+A,none,Percorri le attività
+previous activity=Meta+Shift+A,none,Percorri le attività (inverso)
+repeat_action=none,,Invoca manualmente le azioni sugli appunti correnti
+show dashboard=Ctrl+F12,Ctrl+F12,Mostra il desktop
+show-barcode=none,,Mostra il codice a barre…
+show-on-mouse-pos=Meta+V,Meta+V,Mostra gli elementi degli appunti alla posizione del mouse
+switch to next activity=none,,Passa all'attività successiva
+switch to previous activity=none,,Passa all'attività precedente
+toggle do not disturb=none,,Attiva Non disturbare
+
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
+
+[services][org.kde.touchpadshortcuts.desktop]
+ToggleTouchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku
+
+[yakuake]
+_k_friendly_name=Yakuake
+toggle-window-state=F12,F12,Apri/chiudi Yakuake

@@ -1,0 +1,19 @@
+[Libinput][1267][12963][ELAN0412:01 04F3:32A3 Touchpad]
+ClickMethod=2
+DisableWhileTyping=false
+Enabled=true
+LmrTapButtonMap=true
+NaturalScroll=true
+PointerAcceleration=-0.200
+PointerAccelerationProfile=1
+ScrollFactor=1
+
+[Libinput][2][14][ETPS/2 Elantech Touchpad]
+ClickMethod=2
+Enabled=true
+PointerAcceleration=-0.200
+PointerAccelerationProfile=1
+ScrollMethod=1
+
+[Mouse]
+cursorTheme=Vimix-cursors
