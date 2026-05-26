@@ -269,6 +269,8 @@ systemctl enable thermald.service
 systemctl enable libvirtd.service
 systemctl enable irqbalance.service
 systemctl enable fstrim.timer
+# Auto-fetch new bootc image in background daily (staged, applied on next reboot)
+systemctl enable bootc-fetch-apply-updates.timer
 
 ## ── CLEANUP ──────────────────────────────────────────────────────────────────
 dnf5 -y clean all

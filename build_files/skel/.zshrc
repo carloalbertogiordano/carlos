@@ -20,9 +20,10 @@ source $ZSH/oh-my-zsh.sh
 alias brew="/home/linuxbrew/.linuxbrew/bin/brew"
 
 alias updnf="echo 'UPGRADING DNF...'; echo; sudo dnf update -y"
+alias upbootc="echo 'UPGRADING BOOTC IMAGE...'; echo; bootc upgrade"
 alias upflatpak="echo 'UPGRADING FLATPAK...'; echo; flatpak update"
 alias upbrew="echo 'UPGRADING BREW...'; echo; brew upgrade"
-alias upall="updnf; upflatpak; upbrew; echo; echo 'ALL DONE :)'"
+alias upall="upbootc; upflatpak; upbrew; echo; echo 'ALL DONE — reboot to apply bootc upgrade :)'"
 
 alias neofetch="fastfetch"
 
