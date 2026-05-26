@@ -70,7 +70,8 @@ dnf -y install waydroid
 dnf -y install \
     flatpak-builder iotop sysstat parallel \
     thermald power-profiles-daemon \
-    lm_sensors irqbalance microcode_ctl
+    lm_sensors irqbalance microcode_ctl \
+    earlyoom scx-scheds
 
 # Modern CLI replacements
 dnf -y install \
@@ -201,6 +202,14 @@ blacklist pcspkr
 blacklist snd_pcsp
 EOF
 
+## ── INTEL IRIS XE: GuC/HuC + FBC ────────────────────────────────────────────
+# enable_guc=3: GuC command submission + HuC video decode firmware offload
+# enable_fbc=1: framebuffer compression — cuts VRAM bandwidth + NVMe writes
+# fastboot=1:   skip display mode reset on boot (faster resume)
+cat > /etc/modprobe.d/i915.conf << 'EOF'
+options i915 enable_guc=3 enable_fbc=1 fastboot=1
+EOF
+
 ## ── ZRAM: zstd compression ───────────────────────────────────────────────────
 # 8GB is correct for 32GB RAM (swappiness=10 → barely touched)
 # zstd: ~3x faster than lzo-rle, better compression ratio
@@ -239,19 +248,49 @@ vm.dirty_background_ratio = 5
 vm.dirty_writeback_centisecs = 1500
 vm.page-cluster = 0
 
+# Suppress proactive memory compaction + watermark spike stalls
+vm.compaction_proactiveness = 0
+vm.watermark_boost_factor = 0
+vm.watermark_scale_factor = 125
+
 # CPU scheduling — Intel Thread Director P/E core awareness (Raptor Lake)
 kernel.sched_itmt_enabled = 1
 kernel.nmi_watchdog = 0
 
+# Finer time slices + faster wakeup for desktop responsiveness
+kernel.sched_min_granularity_ns = 500000
+kernel.sched_wakeup_granularity_ns = 50000
+kernel.sched_migration_cost_ns = 250000
+
 # Network — sized for WiFi 6 + Thunderbolt 4
 kernel.unprivileged_userns_clone = 1
 net.core.netdev_max_backlog = 16384
+net.core.netdev_budget = 600
 net.core.rmem_max = 67108864
 net.core.wmem_max = 67108864
 net.ipv4.tcp_rmem = 4096 87380 67108864
 net.ipv4.tcp_wmem = 4096 65536 67108864
 net.ipv4.tcp_congestion_control = bbr
 net.core.default_qdisc = fq
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_mtu_probing = 1
+EOF
+
+# BORE scheduler tuning — heavier penalty on CPU hogs, faster interactivity
+cat > /etc/sysctl.d/99-bore.conf << 'EOF'
+kernel.sched_bore = 1
+kernel.sched_burst_cache_stop_count = 64
+kernel.sched_burst_penalty_scale = 1280
+kernel.sched_burst_smoothness_long = 1
+kernel.sched_burst_smoothness_short = 0
+EOF
+
+# DAMON LRU sort — demotes cold pages proactively before memory pressure hits
+cat > /etc/sysctl.d/99-damon.conf << 'EOF'
+kernel.damon_lru_sort.enabled = 1
+kernel.damon_lru_sort.wmarks.high = 500
+kernel.damon_lru_sort.wmarks.mid = 400
+kernel.damon_lru_sort.wmarks.low = 200
 EOF
 
 # udev: NVMe I/O scheduler — none is optimal for DRAM-less Crucial P3 Plus
@@ -262,11 +301,43 @@ EOF
 # Kernel cmdline
 # transparent_hugepage=madvise: better for JVM/VMs than default 'always'
 # Appended — bootc/dracut merges with base cmdline at compose time
-echo " intel_pstate=active intel_iommu=on iommu=pt nowatchdog nvme_core.default_ps_max_latency_us=0 transparent_hugepage=madvise" \
+echo " intel_pstate=active intel_iommu=on iommu=pt nowatchdog nvme_core.default_ps_max_latency_us=0 transparent_hugepage=madvise mitigations=off threadirqs nosoftlockup split_lock_detect=off zswap.enabled=0" \
     >> /etc/kernel/cmdline
 
 # tuned: 'desktop' profile — interactive latency focus, not server throughput
 echo "desktop" > /etc/tuned/active_profile
+
+## ── SCX SCHEDULER ────────────────────────────────────────────────────────────
+# scx_lavd: P/E core-aware scheduler — specifically tuned for asymmetric
+# topologies like Raptor Lake (4P+8E). Outperforms BORE alone for interactive.
+cat > /etc/sysconfig/scx << 'EOF'
+SCX_SCHEDULER=scx_lavd
+SCX_FLAGS=""
+EOF
+
+## ── PIPEWIRE: low-latency audio ──────────────────────────────────────────────
+# quantum=512 @ 48kHz = ~10ms latency. min=32 for pro use, max=2048 for background.
+mkdir -p /etc/pipewire/pipewire.conf.d/
+cat > /etc/pipewire/pipewire.conf.d/99-latency.conf << 'EOF'
+context.properties = {
+    default.clock.rate        = 48000
+    default.clock.quantum     = 512
+    default.clock.min-quantum = 32
+    default.clock.max-quantum = 2048
+}
+EOF
+
+## ── EARLYOOM ─────────────────────────────────────────────────────────────────
+# Kill at 4% free RAM / 10% free swap — fires before kernel OOM (less catastrophic)
+# prefer browsers/electron; avoid core session processes
+mkdir -p /etc/systemd/system/earlyoom.service.d/
+cat > /etc/systemd/system/earlyoom.service.d/override.conf << 'EOF'
+[Service]
+ExecStart=
+ExecStart=/usr/sbin/earlyoom -m 4 -s 10 \
+    --avoid '(^|/)(Xorg|sshd|pipewire|wireplumber|systemd)$' \
+    --prefer '(^|/)(chrome|chromium|electron|Discord|code|slack)$'
+EOF
 
 ## ── SERVICES ─────────────────────────────────────────────────────────────────
 systemctl enable podman.socket
@@ -274,6 +345,8 @@ systemctl enable thermald.service
 systemctl enable libvirtd.service
 systemctl enable irqbalance.service
 systemctl enable fstrim.timer
+systemctl enable scx.service
+systemctl enable earlyoom.service
 # Auto-fetch new bootc image in background daily (staged, applied on next reboot)
 systemctl enable bootc-fetch-apply-updates.timer
 
