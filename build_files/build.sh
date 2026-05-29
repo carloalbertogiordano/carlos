@@ -83,7 +83,11 @@ dnf -y install \
     flatpak-builder iotop sysstat parallel \
     thermald power-profiles-daemon \
     lm_sensors irqbalance microcode_ctl \
-    earlyoom scx-scheds
+    earlyoom
+
+# scx-scheds: sched-ext userspace schedulers — not always in F44 main yet
+dnf -y install scx-scheds || \
+    echo "[warn] scx-scheds not available in repos, skipping — install manually if needed"
 
 # Modern CLI replacements
 dnf -y install \
@@ -99,11 +103,42 @@ dnf -y install gh git-lfs
 dnf -y install \
     intel-media-driver libva libva-utils \
     mesa-dri-drivers mesa-vulkan-drivers vulkan-tools \
-    intel-gpu-tools
+    intel-gpu-tools \
+    libvpl libvpl-tools                  # Intel QSV (Video Processing Library)
 
 ## ── AUDIO / VIDEO ────────────────────────────────────────────────────────────
-# RPM Fusion nonfree — H264, x264, OBS
-dnf -y install ffmpeg x264-libs obs-studio obs-studio-plugin-x264 --allowerasing
+# Base ffmpeg stack + H264/H265/AV1 encode-decode
+dnf -y install \
+    ffmpeg ffmpeg-libs \
+    x264-libs x265 libde265 \
+    libdav1d libaom \
+    lame \
+    --allowerasing
+
+# GStreamer full stack (needed by Firefox, Nautilus previews, GNOME apps)
+dnf -y install \
+    gstreamer1-plugins-good \
+    gstreamer1-plugins-bad-free \
+    gstreamer1-plugins-bad-freeworld \
+    gstreamer1-plugins-ugly \
+    gstreamer1-libav \
+    gstreamer1-vaapi \
+    gstreamer1-plugin-openh264
+
+# HEIF/HEIC image support (iPhone photos, H.265-based)
+dnf -y install libheif libheif-freeworld
+
+# Mozilla OpenH264 (Firefox in-browser H264 decode)
+dnf -y install mozilla-openh264
+
+# DVD playback
+dnf -y install libdvdread libdvdnav
+
+# OBS
+dnf -y install obs-studio obs-studio-plugin-x264
+
+# Bluetooth hi-fi codecs (aptX, aptX HD, LDAC)
+dnf -y install pipewire-codec-aptx libldac
 
 ## ── FONTS ────────────────────────────────────────────────────────────────────
 # Inter: clean humanist sans — warm feel, excellent screen legibility
