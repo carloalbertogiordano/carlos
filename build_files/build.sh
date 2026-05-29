@@ -23,7 +23,7 @@ curl -Lo /etc/yum.repos.d/nautilus-open-any-terminal.repo \
 ## ── KERNEL: CachyOS ──────────────────────────────────────────────────────────
 # Install CachyOS kernel first, then remove stock Fedora kernel.
 # CachyOS includes CONFIG_ANDROID_BINDER_IPC=y built-in — required for Waydroid.
-dnf -y install kernel-cachyos kernel-cachyos-headers dkms
+dnf -y install kernel-cachyos kernel-cachyos-devel dkms
 
 # Remove stock Fedora kernel — keep only CachyOS
 STOCK=$(rpm -qa 'kernel' 'kernel-core' 'kernel-modules' 'kernel-modules-core' \
