@@ -200,7 +200,7 @@ dnf -y install papirus-icon-theme
 dnf -y install kvantum
 
 # adw-gtk3: clean light GTK3/4 theme (no libadwaita required)
-dnf -y install adw-gtk3
+dnf -y install adw-gtk3-theme
 
 # Ant-Kde: color scheme + LnF package only (aurorae not used — Breeze decoration active)
 git clone --depth 1 https://github.com/EliverLara/Ant-Kde /tmp/Ant-Kde
