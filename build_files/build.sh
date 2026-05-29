@@ -202,14 +202,6 @@ dnf -y install kvantum
 # adw-gtk3: clean light GTK3/4 theme (no libadwaita required)
 dnf -y install adw-gtk3-theme
 
-# Ant-Kde: color scheme + LnF package only (aurorae not used — Breeze decoration active)
-git clone --depth 1 https://github.com/EliverLara/Ant-Kde /tmp/Ant-Kde
-install -dm755 /usr/share/color-schemes/
-cp /tmp/Ant-Kde/color-schemes/Ant-Dark.colors /usr/share/color-schemes/
-install -dm755 /usr/share/plasma/look-and-feel/
-cp -r /tmp/Ant-Kde/plasma/look-and-feel/Ant-Dark /usr/share/plasma/look-and-feel/
-rm -rf /tmp/Ant-Kde
-
 # Carlos Warm color scheme — system-wide so all users can pick it in Settings
 install -dm755 /usr/share/color-schemes/
 cp /ctx/skel/.local/share/color-schemes/CarlosWarm.colors /usr/share/color-schemes/CarlosWarm.colors
