@@ -235,7 +235,7 @@ EOF
 # After deployment, run once: sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 git clone --depth 1 https://github.com/vinceliuice/grub2-themes /tmp/grub2-themes
 install -dm755 /usr/share/grub/themes/
-cp -r /tmp/grub2-themes/themes/vimix /usr/share/grub/themes/vimix
+bash /tmp/grub2-themes/install.sh --theme vimix --screen 1080p
 rm -rf /tmp/grub2-themes
 
 # Append GRUB_THEME only if not already set
