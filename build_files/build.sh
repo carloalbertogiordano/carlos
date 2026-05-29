@@ -21,14 +21,26 @@ curl -Lo /etc/yum.repos.d/nautilus-open-any-terminal.repo \
     "https://copr.fedorainfracloud.org/coprs/monkeygold/nautilus-open-any-terminal/repo/fedora-${FEDORA_VER}/monkeygold-nautilus-open-any-terminal-fedora-${FEDORA_VER}.repo"
 
 ## ── KERNEL: CachyOS ──────────────────────────────────────────────────────────
-# Install CachyOS kernel first, then remove stock Fedora kernel.
-# CachyOS includes CONFIG_ANDROID_BINDER_IPC=y built-in — required for Waydroid.
+# 05-rpmostree.install runs dracut during %posttrans but modules.dep doesn't
+# exist yet at that point in a container build — bootc generates initramfs at
+# deploy time anyway, so disable the hook for the duration of this install.
+mv /usr/lib/kernel/install.d/05-rpmostree.install \
+   /usr/lib/kernel/install.d/05-rpmostree.install.disabled 2>/dev/null || true
+
 dnf -y install kernel-cachyos kernel-cachyos-devel dkms
+
+# Build modules.dep for the new kernel so dkms and depmod consumers work
+CACHYOS_VER=$(rpm -q kernel-cachyos-core --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' 2>/dev/null | head -1)
+[ -n "$CACHYOS_VER" ] && depmod -a "$CACHYOS_VER" || true
 
 # Remove stock Fedora kernel — keep only CachyOS
 STOCK=$(rpm -qa 'kernel' 'kernel-core' 'kernel-modules' 'kernel-modules-core' \
     'kernel-modules-extra' 'kernel-devel' 2>/dev/null | grep -v cachyos || true)
 [ -n "$STOCK" ] && dnf -y remove $STOCK || true
+
+# Restore hook so future rpm operations behave normally
+mv /usr/lib/kernel/install.d/05-rpmostree.install.disabled \
+   /usr/lib/kernel/install.d/05-rpmostree.install 2>/dev/null || true
 
 ## ── EDITORS ──────────────────────────────────────────────────────────────────
 # Remove vim-minimal (provides /usr/bin/vi — not wanted)
