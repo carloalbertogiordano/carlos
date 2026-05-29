@@ -125,19 +125,19 @@ dnf -y install \
     --allowerasing
 
 # GStreamer full stack (needed by Firefox, Nautilus previews, GNOME apps)
-# --allowerasing: fedora-multimedia ships gstreamer1-plugins-bad which obsoletes -bad-free
+# fedora-multimedia replaces gstreamer1-plugins-bad-free → gstreamer1-plugins-bad
 dnf -y install \
     gstreamer1-plugins-good \
-    gstreamer1-plugins-bad-free \
+    gstreamer1-plugins-bad \
     gstreamer1-plugins-bad-freeworld \
     gstreamer1-plugins-ugly \
     gstreamer1-libav \
     gstreamer1-vaapi \
     gstreamer1-plugin-openh264 \
-    --allowerasing
+    --allowerasing --nobest
 
 # HEIF/HEIC image support (iPhone photos, H.265-based)
-dnf -y install libheif libheif-freeworld --allowerasing
+dnf -y install libheif libheif-freeworld --allowerasing --nobest
 
 # Mozilla OpenH264 (Firefox in-browser H264 decode)
 dnf -y install mozilla-openh264
@@ -148,8 +148,8 @@ dnf -y install libdvdread libdvdnav
 # OBS
 dnf -y install obs-studio obs-studio-plugin-x264
 
-# Bluetooth hi-fi codecs (aptX, aptX HD, LDAC)
-dnf -y install pipewire-codec-aptx libldac
+# Bluetooth hi-fi codecs: aptX already in pipewire-libs-extra (base image),
+# libldac already installed as dep — both present, no explicit install needed
 
 ## ── FONTS ────────────────────────────────────────────────────────────────────
 # Inter: clean humanist sans — warm feel, excellent screen legibility
