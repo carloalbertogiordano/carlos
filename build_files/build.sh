@@ -13,6 +13,15 @@ dnf -y install \
     "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VER}.noarch.rpm" \
     "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VER}.noarch.rpm"
 
+# fedora-multimedia (in base image) ships newer vvenc-libs than rpmfusion-free.
+# Exclude vvenc-libs from rpmfusion repos globally to prevent downgrade conflicts
+# on any package that transitively depends on it (ffmpeg, libheif-freeworld, …).
+for repo in /etc/yum.repos.d/rpmfusion-free*.repo; do
+    grep -q '^excludepkgs=' "$repo" \
+        && sed -i 's/^excludepkgs=/excludepkgs=vvenc-libs /' "$repo" \
+        || echo 'excludepkgs=vvenc-libs' >> "$repo"
+done
+
 # CachyOS kernel (COPR bieszczaders/kernel-cachyos)
 dnf copr enable -y bieszczaders/kernel-cachyos
 
@@ -108,13 +117,12 @@ dnf -y install \
 
 ## ── AUDIO / VIDEO ────────────────────────────────────────────────────────────
 # Base ffmpeg stack + H264/H265/AV1 encode-decode
-# --exclude=vvenc-libs: fedora-multimedia ships 1.14.0, rpmfusion-free 1.13.1 — keep newer
 dnf -y install \
     ffmpeg ffmpeg-libs \
     x264-libs x265 libde265 \
     libdav1d libaom \
     lame \
-    --allowerasing --exclude=vvenc-libs
+    --allowerasing
 
 # GStreamer full stack (needed by Firefox, Nautilus previews, GNOME apps)
 # --allowerasing: fedora-multimedia ships gstreamer1-plugins-bad which obsoletes -bad-free
@@ -129,7 +137,7 @@ dnf -y install \
     --allowerasing
 
 # HEIF/HEIC image support (iPhone photos, H.265-based)
-dnf -y install libheif libheif-freeworld
+dnf -y install libheif libheif-freeworld --allowerasing
 
 # Mozilla OpenH264 (Firefox in-browser H264 decode)
 dnf -y install mozilla-openh264
