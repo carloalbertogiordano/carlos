@@ -10,7 +10,7 @@ ItemGeometries-1920x1080=Applet-95:16,464,176,192,0;Applet-94:16,656,176,160,0;A
 ItemGeometries-2560x1440=Applet-95:16,448,176,192,0;Applet-94:16,640,176,176,0;Applet-89:32,816,176,128,0;
 ItemGeometries-3840x2160=Applet-95:16,448,176,192,0;Applet-94:16,640,176,176,0;Applet-89:32,816,176,128,0;
 ItemGeometriesHorizontal=Applet-95:16,464,176,192,0;Applet-94:16,656,176,160,0;Applet-89:32,816,176,128,0;
-activityId=72eeec1c-4aed-4db4-b433-5bb8f6704f6a
+activityId=
 formfactor=0
 immutability=1
 lastScreen=0
@@ -28,7 +28,7 @@ UserBackgroundHints=ShadowBackground
 
 [Containments][53][Applets][89][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
-title=Velocità di rete
+title=Network Speed
 
 [Containments][53][Applets][89][Configuration][ConfigDialog]
 DialogHeight=540
@@ -55,7 +55,7 @@ UserBackgroundHints=ShadowBackground
 
 [Containments][53][Applets][94][Configuration][Appearance]
 chartFace=org.kde.ksysguard.piechart
-title=Utilizzo memoria
+title=Memory Usage
 
 [Containments][53][Applets][94][Configuration][ConfigDialog]
 DialogHeight=540
@@ -82,7 +82,7 @@ UserBackgroundHints=ShadowBackground
 
 [Containments][53][Applets][95][Configuration][Appearance]
 chartFace=org.kde.ksysguard.piechart
-title=Utilizzo totale CPU
+title=CPU Usage
 
 [Containments][53][Applets][95][Configuration][ConfigDialog]
 DialogHeight=540
@@ -112,7 +112,7 @@ positions={"1920x1080":["1","17"],"3840x2160":["1","35"]}
 sortMode=-1
 
 [Containments][53][Wallpaper][org.kde.image][General]
-Image=
+Image=/usr/share/wallpapers/Nordic-mountain-wallpaper.jpg
 SlidePaths=/usr/share/wallpapers/
 
 [Containments][54]
@@ -304,16 +304,11 @@ speedUnit=9000
 temperatureUnit=6001
 visibilityUnit=2007
 
-[Containments][54][Applets][97][Configuration][WeatherStation]
-placeDisplayName=Fisciano, Kampanien, IT
-placeInfo=place|Fisciano, Kampanien, IT|extra|IT0CA0095;Fisciano
-provider=wettercom
-
 [Containments][54][General]
 AppletOrder=55;56;102;73;97;101;104;59
 
 [Containments][81]
-activityId=72eeec1c-4aed-4db4-b433-5bb8f6704f6a
+activityId=
 formfactor=0
 immutability=1
 lastScreen=1
@@ -329,7 +324,7 @@ DialogWidth=810
 positions={"1920x1080":[]}
 
 [Containments][81][Wallpaper][org.kde.image][General]
-Image=
+Image=/usr/share/wallpapers/Nordic-mountain-wallpaper.jpg
 SlidePaths=/usr/share/wallpapers/
 
 [Containments][84]
@@ -352,7 +347,7 @@ DialogWidth=720
 [Containments][84][Applets][83][Configuration][General]
 highlightWindows=false
 iconSpacing=3
-launchers=applications:steam.desktop,applications:systemsettings.desktop,applications:org.kde.discover.desktop,preferred://filemanager,applications:librewolf.desktop,preferred://browser,applications:org.kde.konsole.desktop
+launchers=applications:steam.desktop,applications:systemsettings.desktop,applications:org.kde.discover.desktop,preferred://filemanager,applications:librewolf.desktop,preferred://browser,preferred://terminal
 middleClickAction=ToggleMinimized
 reverseMode=true
 

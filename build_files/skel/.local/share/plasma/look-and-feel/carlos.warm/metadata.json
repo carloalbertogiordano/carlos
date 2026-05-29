@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Name": "Carlos Warm",
+        "Description": "Warm espresso splash screen",
+        "Id": "carlos.warm",
+        "Version": "1.0",
+        "Category": "Plasma Look And Feel",
+        "License": "GPL-2.0-or-later",
+        "Authors": [{"Name": "Carlo"}],
+        "Website": ""
+    }
+}

@@ -93,6 +93,25 @@ dnf -y install \
 # RPM Fusion nonfree — H264, x264, OBS
 dnf -y install ffmpeg x264-libs obs-studio obs-studio-plugin-x264 --allowerasing
 
+## ── FONTS ────────────────────────────────────────────────────────────────────
+# Inter: clean humanist sans — warm feel, excellent screen legibility
+dnf -y install rsms-inter-fonts
+
+# Subpixel rendering + light hinting for Intel Iris Xe LCD
+cat > /etc/fonts/local.conf << 'EOF'
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <match target="font">
+    <edit name="antialias"  mode="assign"><bool>true</bool></edit>
+    <edit name="hinting"    mode="assign"><bool>true</bool></edit>
+    <edit name="hintstyle"  mode="assign"><const>hintslight</const></edit>
+    <edit name="rgba"       mode="assign"><const>rgb</const></edit>
+    <edit name="lcdfilter"  mode="assign"><const>lcddefault</const></edit>
+  </match>
+</fontconfig>
+EOF
+
 ## ── USER APPS ────────────────────────────────────────────────────────────────
 dnf -y install nautilus kitty mpv gnome-terminal gnome-system-monitor yakuake
 
@@ -119,15 +138,70 @@ dconf update
 # Papirus: base icon theme — Nordic-darker overrides only folder icons
 dnf -y install papirus-icon-theme
 
-# Ant-Kde: aurorae decoration + Ant-Dark color scheme + LnF package
+# Kvantum: Qt widget engine — reads KDE color scheme for warm palette
+dnf -y install kvantum
+
+# adw-gtk3: clean light GTK3/4 theme (no libadwaita required)
+dnf -y install adw-gtk3
+
+# Ant-Kde: color scheme + LnF package only (aurorae not used — Breeze decoration active)
 git clone --depth 1 https://github.com/EliverLara/Ant-Kde /tmp/Ant-Kde
-install -dm755 /usr/share/aurorae/themes/
-cp -r /tmp/Ant-Kde/aurorae/Dark /usr/share/aurorae/themes/Ant-Dark
 install -dm755 /usr/share/color-schemes/
 cp /tmp/Ant-Kde/color-schemes/Ant-Dark.colors /usr/share/color-schemes/
 install -dm755 /usr/share/plasma/look-and-feel/
 cp -r /tmp/Ant-Kde/plasma/look-and-feel/Ant-Dark /usr/share/plasma/look-and-feel/
 rm -rf /tmp/Ant-Kde
+
+# Carlos Warm color scheme — system-wide so all users can pick it in Settings
+install -dm755 /usr/share/color-schemes/
+cp /ctx/skel/.local/share/color-schemes/CarlosWarm.colors /usr/share/color-schemes/CarlosWarm.colors
+
+# SDDM: Sugar-Dark theme with warm espresso palette
+git clone --depth 1 https://github.com/MarianArlt/sddm-sugar-dark /tmp/sddm-sugar-dark
+install -dm755 /usr/share/sddm/themes/
+cp -r /tmp/sddm-sugar-dark /usr/share/sddm/themes/carlos-warm
+rm -rf /tmp/sddm-sugar-dark
+
+cat > /usr/share/sddm/themes/carlos-warm/theme.conf.user << 'EOF'
+[General]
+Background=/usr/share/wallpapers/Nordic-mountain-wallpaper.jpg
+AccentColor=#B8753A
+BackgroundColor=#2C1810
+BodyColor=#E8D5B7
+HeaderColor=#B8753A
+HighlightColor=#B8753A
+HighlightColorAlt=#7A4520
+MainColor=#FAF6EF
+OverrideLoginButtonTextColor=#FAF6EF
+EOF
+
+mkdir -p /etc/sddm.conf.d/
+cat > /etc/sddm.conf.d/carlos.conf << 'EOF'
+[Theme]
+Current=carlos-warm
+EOF
+
+# GRUB: Vimix theme (same family as Vimix cursors already installed)
+# After deployment, run once: sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+git clone --depth 1 https://github.com/vinceliuice/grub2-themes /tmp/grub2-themes
+install -dm755 /usr/share/grub/themes/
+cp -r /tmp/grub2-themes/themes/vimix /usr/share/grub/themes/vimix
+rm -rf /tmp/grub2-themes
+
+# Append GRUB_THEME only if not already set
+grep -q '^GRUB_THEME=' /etc/default/grub 2>/dev/null || \
+    echo 'GRUB_THEME="/usr/share/grub/themes/vimix/theme.txt"' >> /etc/default/grub
+# Ensure terminal output is blank so theme renders fully
+sed -i 's/^GRUB_TERMINAL_OUTPUT=.*//' /etc/default/grub 2>/dev/null || true
+
+# Plymouth: warm Breeze theme (initrd rebuilt by bootc at compose time)
+mkdir -p /etc/plymouth/
+cat > /etc/plymouth/plymouthd.conf << 'EOF'
+[Daemon]
+Theme=breeze
+ShowDelay=0
+DeviceTimeout=8
+EOF
 
 # Nordic: folder icon overlay for KDE (inherits Papirus-Dark for app icons)
 git clone --depth 1 https://github.com/EliverLara/Nordic /tmp/Nordic
@@ -219,6 +293,10 @@ cp -rf /ctx/dot_config/kitty/. /etc/skel/.config/kitty/
 
 # Shell dotfiles, KDE config, themes, wallpaper
 cp -rf /ctx/skel/. /etc/skel/
+
+# Wallpaper also into system path so plasma skel config can reference it without user-home path
+install -Dm644 /ctx/skel/.local/share/wallpapers/Nordic-mountain-wallpaper.jpg \
+    /usr/share/wallpapers/Nordic-mountain-wallpaper.jpg
 
 # oh-my-zsh + custom plugins — installed into skel so every new user gets it
 git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git \

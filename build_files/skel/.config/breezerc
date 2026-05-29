@@ -1,0 +1,10 @@
+[Common]
+OutlineIntensity=OutlineOff
+
+[Windeco]
+BorderSize=Normal
+ButtonSize=Normal
+DrawBackgroundGradient=false
+DrawBorderOnMaximizedWindows=false
+TitleAlignment=AlignLeft
+UseSystemColors=true
