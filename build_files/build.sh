@@ -81,7 +81,7 @@ dnf -y install waydroid
 ## ── SYSTEM TOOLS ─────────────────────────────────────────────────────────────
 dnf -y install \
     flatpak-builder iotop sysstat parallel \
-    thermald power-profiles-daemon \
+    thermald \
     lm_sensors irqbalance microcode_ctl \
     earlyoom
 
