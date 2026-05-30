@@ -258,7 +258,7 @@ EOF
 # Nordic: folder icon overlay for KDE (inherits Papirus-Dark for app icons)
 git clone --depth 1 https://github.com/EliverLara/Nordic /tmp/Nordic
 install -dm755 /usr/share/icons/
-cp -r /tmp/Nordic/kde/folders-darker/Nordic-darker /usr/share/icons/
+cp -r /tmp/Nordic/kde/folders/Nordic-darker /usr/share/icons/
 gtk-update-icon-cache /usr/share/icons/Nordic-darker/ || true
 rm -rf /tmp/Nordic
 
