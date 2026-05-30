@@ -276,14 +276,8 @@ curl -fsSL "https://github.com/jdx/mise/releases/download/${MISE_VER}/mise-${MIS
     -o /usr/local/bin/mise
 chmod +x /usr/local/bin/mise
 
-# uv: fast Python package + venv + version manager (replaces pip/pyenv/virtualenv)
-UV_LATEST=$(curl -sf https://api.github.com/repos/astral-sh/uv/releases/latest | \
-    python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
-curl -fsSL "https://github.com/astral-sh/uv/releases/download/${UV_LATEST}/uv-x86_64-unknown-linux-musl.tar.gz" \
-    | tar -xz -C /tmp
-install -m755 /tmp/uv-x86_64-unknown-linux-musl/uv  /usr/local/bin/uv
-install -m755 /tmp/uv-x86_64-unknown-linux-musl/uvx /usr/local/bin/uvx
-rm -rf /tmp/uv-x86_64-unknown-linux-musl
+# uv: fast Python package + venv + version manager — official PyPI package
+pip3 install --quiet uv
 
 ## ── NIX: package manager (immutable-compatible) ──────────────────────────────
 # /nix is empty in image (read-only layer); nix.mount bind-mounts /var/lib/nix
