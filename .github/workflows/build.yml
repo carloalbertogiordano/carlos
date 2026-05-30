@@ -77,8 +77,6 @@ jobs:
             io.artifacthub.package.logo-url=${{ env.IMAGE_LOGO_URL }}
             io.artifacthub.package.prerelease=false
             containers.bootc=1
-          sep-tags: " "
-          sep-annotations: " "
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
