@@ -274,7 +274,7 @@ curl https://mise.run | MISE_INSTALL_PATH=/usr/bin/mise sh
 
 # uv: fast Python package + venv + version manager — official PyPI (Astral)
 dnf -y install python3-pip
-pip3 install uv
+pip3 install --prefix=/usr uv
 
 ## ── NIX: package manager (immutable-compatible) ──────────────────────────────
 # /nix is empty in image (read-only layer); nix.mount bind-mounts /var/lib/nix
