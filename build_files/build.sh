@@ -364,17 +364,17 @@ useradd -D -s /bin/zsh
 TOOLBOX_URL=$(curl -sf \
     "https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release" | \
     python3 -c "import sys,json; d=json.load(sys.stdin); print(d['TBA'][0]['downloads']['linux']['link'])")
-mkdir -p /opt/jetbrains-toolbox
+install -dm755 /usr/share/jetbrains-toolbox
 curl -Lo /tmp/toolbox.tar.gz "$TOOLBOX_URL"
-tar -xzf /tmp/toolbox.tar.gz -C /opt/jetbrains-toolbox --strip-components=1
+tar -xzf /tmp/toolbox.tar.gz -C /usr/share/jetbrains-toolbox --strip-components=1
 rm /tmp/toolbox.tar.gz
-ln -sf /opt/jetbrains-toolbox/jetbrains-toolbox /usr/bin/jetbrains-toolbox
+ln -sf /usr/share/jetbrains-toolbox/jetbrains-toolbox /usr/bin/jetbrains-toolbox
 cat > /usr/share/applications/jetbrains-toolbox.desktop << 'EOF'
 [Desktop Entry]
 Type=Application
 Name=JetBrains Toolbox
-Exec=/opt/jetbrains-toolbox/jetbrains-toolbox
-Icon=/opt/jetbrains-toolbox/.install4j/jetbrains-toolbox.png
+Exec=/usr/share/jetbrains-toolbox/jetbrains-toolbox
+Icon=/usr/share/jetbrains-toolbox/.install4j/jetbrains-toolbox.png
 Categories=Development;IDE;
 EOF
 
