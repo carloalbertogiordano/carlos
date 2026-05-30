@@ -262,9 +262,9 @@ cp -r /tmp/Nordic/kde/folders/Nordic-darker /usr/share/icons/
 gtk-update-icon-cache /usr/share/icons/Nordic-darker/ || true
 rm -rf /tmp/Nordic
 
-# Vimix cursors
+# Vimix cursors — install.sh uses relative path for dist/, must run from repo root
 git clone --depth 1 https://github.com/vinceliuice/Vimix-cursors /tmp/Vimix-cursors
-bash /tmp/Vimix-cursors/install.sh -d /usr/share/icons
+(cd /tmp/Vimix-cursors && bash install.sh)
 rm -rf /tmp/Vimix-cursors
 
 ## ── PACKAGE MANAGERS ─────────────────────────────────────────────────────────
@@ -499,15 +499,18 @@ EOF
 # Kernel cmdline
 # transparent_hugepage=madvise: better for JVM/VMs than default 'always'
 # Appended — bootc/dracut merges with base cmdline at compose time
+mkdir -p /etc/kernel/
 echo " intel_pstate=active intel_iommu=on iommu=pt nowatchdog nvme_core.default_ps_max_latency_us=0 transparent_hugepage=madvise mitigations=off threadirqs nosoftlockup split_lock_detect=off zswap.enabled=0" \
     >> /etc/kernel/cmdline
 
 # tuned: 'desktop' profile — interactive latency focus, not server throughput
+mkdir -p /etc/tuned/
 echo "desktop" > /etc/tuned/active_profile
 
 ## ── SCX SCHEDULER ────────────────────────────────────────────────────────────
 # scx_lavd: P/E core-aware scheduler — specifically tuned for asymmetric
 # topologies like Raptor Lake (4P+8E). Outperforms BORE alone for interactive.
+mkdir -p /etc/sysconfig/
 cat > /etc/sysconfig/scx << 'EOF'
 SCX_SCHEDULER=scx_lavd
 SCX_FLAGS=""
@@ -543,11 +546,11 @@ systemctl enable thermald.service
 systemctl enable libvirtd.service
 systemctl enable irqbalance.service
 systemctl enable fstrim.timer
-systemctl enable scx.service
+systemctl enable scx.service 2>/dev/null || true  # only if scx-scheds installed
 systemctl enable earlyoom.service
 # Auto-fetch new bootc image in background daily (staged, applied on next reboot)
 systemctl enable bootc-fetch-apply-updates.timer
 
 ## ── CLEANUP ──────────────────────────────────────────────────────────────────
-dnf5 -y clean all
+dnf -y clean all
 rm -rf /run/dnf /run/selinux-policy /var/lib/dnf
