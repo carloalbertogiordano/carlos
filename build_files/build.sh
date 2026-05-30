@@ -272,8 +272,9 @@ rm -rf /tmp/Vimix-cursors
 # /usr/local is a symlink to /var/usrlocal in ostree images — use /usr/bin instead
 curl https://mise.run | MISE_INSTALL_PATH=/usr/bin/mise sh
 
-# uv: fast Python package + venv + version manager — official Fedora package
-dnf -y install uv
+# uv: fast Python package + venv + version manager — official PyPI (Astral)
+dnf -y install python3-pip
+pip3 install uv
 
 ## ── NIX: package manager (immutable-compatible) ──────────────────────────────
 # /nix is empty in image (read-only layer); nix.mount bind-mounts /var/lib/nix
