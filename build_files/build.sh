@@ -269,8 +269,8 @@ rm -rf /tmp/Vimix-cursors
 
 ## ── PACKAGE MANAGERS ─────────────────────────────────────────────────────────
 # mise: per-project language version manager (node, python, go, ruby, java, …)
-mkdir -p /usr/local/bin/
-curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
+# /usr/local is a symlink to /var/usrlocal in ostree images — use /usr/bin instead
+curl https://mise.run | MISE_INSTALL_PATH=/usr/bin/mise sh
 
 # uv: fast Python package + venv + version manager — official PyPI package
 pip3 install --quiet uv
@@ -302,7 +302,7 @@ WantedBy=local-fs.target
 EOF
 
 # Run once after first login: sudo setup-nix
-cat > /usr/local/bin/setup-nix << 'EOF'
+cat > /usr/bin/setup-nix << 'EOF'
 #!/bin/bash
 set -euo pipefail
 echo "[setup-nix] Installing Nix (DeterminateSystems)..."
@@ -313,7 +313,7 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
     --extra-conf "trusted-users = root @wheel"
 echo "[setup-nix] Done — open a new shell or run: . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 EOF
-chmod +x /usr/local/bin/setup-nix
+chmod +x /usr/bin/setup-nix
 systemctl enable nix.mount
 
 ## ── ARCH DISTROBOX: AUR access via paru ──────────────────────────────────────
@@ -367,7 +367,7 @@ mkdir -p /opt/jetbrains-toolbox
 curl -Lo /tmp/toolbox.tar.gz "$TOOLBOX_URL"
 tar -xzf /tmp/toolbox.tar.gz -C /opt/jetbrains-toolbox --strip-components=1
 rm /tmp/toolbox.tar.gz
-ln -sf /opt/jetbrains-toolbox/jetbrains-toolbox /usr/local/bin/jetbrains-toolbox
+ln -sf /opt/jetbrains-toolbox/jetbrains-toolbox /usr/bin/jetbrains-toolbox
 cat > /usr/share/applications/jetbrains-toolbox.desktop << 'EOF'
 [Desktop Entry]
 Type=Application
