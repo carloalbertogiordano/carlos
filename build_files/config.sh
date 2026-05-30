@@ -296,7 +296,29 @@ ExecStart=/usr/sbin/earlyoom -m 4 -s 10 \
     --prefer '(^|/)(chrome|chromium|electron|Discord|code|slack)$'
 EOF
 
+## ── FLATPAK FIRSTBOOT SERVICE ────────────────────────────────────────────────
+install -Dm755 /ctx/flatpak-firstboot.sh /usr/lib/carlos/flatpak-firstboot.sh
+
+cat > /etc/systemd/system/flatpak-firstboot.service << 'EOF'
+[Unit]
+Description=Install extra-data Flatpaks on first boot
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=!/var/lib/carlos/flatpak-firstboot.done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/carlos/flatpak-firstboot.sh
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 ## ── SERVICES ─────────────────────────────────────────────────────────────────
+systemctl enable flatpak-firstboot.service
 systemctl enable podman.socket
 systemctl enable thermald.service
 systemctl enable libvirtd.service

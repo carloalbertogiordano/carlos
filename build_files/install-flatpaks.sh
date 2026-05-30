@@ -33,8 +33,8 @@ install_flatpak org.mozilla.firefox
 install_flatpak org.videolan.VLC
 install_flatpak org.torproject.torbrowser-launcher
 
-# Extra-data flatpaks — may fail in container builds due to bwrap restriction.
-# They will complete installation on first user login.
+# Extra-data flatpaks — require bwrap (user namespaces) unavailable in container builds.
+# flatpak-firstboot.service completes installation on first boot once bwrap is available.
 install_flatpak ai.lmstudio.lm-studio
 install_flatpak com.anydesk.Anydesk
 install_flatpak com.brave.Browser
