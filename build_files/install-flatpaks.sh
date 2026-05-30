@@ -16,7 +16,6 @@ flatpak install --system --noninteractive flathub \
     com.github.micahflee.torbrowser-launcher \
     com.github.tchx84.Flatseal \
     com.github.xournalpp.xournalpp \
-    com.google.Chrome \
     com.ktechpit.orion \
     com.protonvpn.www \
     com.prusa3d.PrusaSlicer \

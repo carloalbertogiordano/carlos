@@ -2,6 +2,19 @@
 
 set -ouex pipefail
 
+## ── GOOGLE CHROME ────────────────────────────────────────────────────────────
+# Flatpak Chrome fails in container builds (bwrap namespace restriction)
+# Official Google RPM repo — same binary, no sandbox issues
+cat > /etc/yum.repos.d/google-chrome.repo << 'EOF'
+[google-chrome]
+name=google-chrome
+baseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+EOF
+dnf -y install google-chrome-stable
+
 ## ── KDE THEMES ───────────────────────────────────────────────────────────────
 dnf -y install papirus-icon-theme kvantum adw-gtk3-theme
 
