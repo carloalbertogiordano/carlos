@@ -3,8 +3,8 @@
 set -ouex pipefail
 
 ## ── GOOGLE CHROME ────────────────────────────────────────────────────────────
-# Flatpak Chrome fails in container builds (bwrap namespace restriction)
-# Official Google RPM repo — same binary, no sandbox issues
+# /opt is a symlink to /var/opt in ostree — create target so RPM can unpack
+mkdir -p /var/opt/
 cat > /etc/yum.repos.d/google-chrome.repo << 'EOF'
 [google-chrome]
 name=google-chrome
