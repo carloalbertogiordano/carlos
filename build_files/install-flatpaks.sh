@@ -27,7 +27,6 @@ flatpak install --system --noninteractive flathub \
     io.github.dvlv.boxbuddyrs \
     md.obsidian.Obsidian \
     net.pcsx2.PCSX2 \
-    net.thunderbird.Thunderbird \
     org.gimp.GIMP \
     org.ghidra_sre.Ghidra \
     org.inkscape.Inkscape \
