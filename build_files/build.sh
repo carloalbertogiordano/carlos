@@ -269,7 +269,12 @@ rm -rf /tmp/Vimix-cursors
 
 ## ── PACKAGE MANAGERS ─────────────────────────────────────────────────────────
 # mise: per-project language version manager (node, python, go, ruby, java, …)
-curl https://mise.run | MISE_INSTALL_PATH=/usr/local/bin/mise sh
+# Direct binary download — avoids install script that runs mkdir /usr/local (no -p)
+MISE_VER=$(curl -sf https://api.github.com/repos/jdx/mise/releases/latest | \
+    python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
+curl -fsSL "https://github.com/jdx/mise/releases/download/${MISE_VER}/mise-${MISE_VER}-linux-x64-musl" \
+    -o /usr/local/bin/mise
+chmod +x /usr/local/bin/mise
 
 # uv: fast Python package + venv + version manager (replaces pip/pyenv/virtualenv)
 UV_LATEST=$(curl -sf https://api.github.com/repos/astral-sh/uv/releases/latest | \
