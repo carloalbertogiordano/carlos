@@ -47,6 +47,15 @@ STOCK=$(rpm -qa 'kernel' 'kernel-core' 'kernel-modules' 'kernel-modules-core' \
     'kernel-modules-extra' 'kernel-devel' 2>/dev/null | grep -v cachyos || true)
 [ -n "$STOCK" ] && dnf -y remove $STOCK || true
 
+# Force-remove leftover stock kernel dirs from /usr/lib/modules
+# (dnf remove fails silently on ostree-managed files, leaving stale dirs)
+if [ -n "$CACHYOS_VER" ]; then
+    for kdir in /usr/lib/modules/*/; do
+        kname=$(basename "$kdir")
+        [ "$kname" != "$CACHYOS_VER" ] && rm -rf "$kdir" || true
+    done
+fi
+
 # Restore hook so future rpm operations behave normally
 mv /usr/lib/kernel/install.d/05-rpmostree.install.disabled \
    /usr/lib/kernel/install.d/05-rpmostree.install 2>/dev/null || true
