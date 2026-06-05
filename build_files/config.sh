@@ -301,20 +301,25 @@ install -Dm755 /ctx/flatpak-firstboot.sh /usr/lib/carlos/flatpak-firstboot.sh
 
 cat > /etc/systemd/system/flatpak-firstboot.service << 'EOF'
 [Unit]
-Description=Install extra-data Flatpaks on first boot
-After=network-online.target
-Wants=network-online.target
+Description=Carlos First-Boot Flatpak Setup
 ConditionPathExists=!/var/lib/carlos/flatpak-firstboot.done
+After=local-fs.target network.target
+Before=display-manager.service
+Conflicts=getty@tty1.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/carlos/flatpak-firstboot.sh
 RemainAfterExit=yes
-StandardOutput=journal
-StandardError=journal
+ExecStart=/usr/lib/carlos/flatpak-firstboot.sh
+StandardInput=tty
+StandardOutput=tty
+StandardError=tty
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
 EOF
 
 ## ── SERVICES ─────────────────────────────────────────────────────────────────
